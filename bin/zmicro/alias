@@ -1,0 +1,33 @@
+#!/bin/bash
+
+help() {
+  echo "Usage:"
+  echo "  zmicro k3s <args ...>"
+  echo ""
+
+  k3s --help
+}
+
+version() {
+  k3s --version
+}
+
+core() {
+  case $1 in
+  -h | --help | help)
+    help
+    ;;
+  -v | --version | version)
+    version
+    ;;
+  *)
+    k3s "$@"
+    ;;
+  esac
+}
+
+run() {
+  core "$@"
+}
+
+run "$@"

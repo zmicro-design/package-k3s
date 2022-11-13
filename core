@@ -1,0 +1,44 @@
+#!/bin/bash
+
+install() {
+  # get system os/arch
+  local arch="$PACKAGE_OS_ARCH"
+  local kernel="$PACKAGE_OS_KERNEL"
+  local platform="$PACKAGE_OS_PLATFORM"
+  # usr_bin_dir
+  local usr_bin_dir="$PACKAGE_USER_BIN_DIR"
+  local tmp_dir="$PACKAGE_TMP_DIR"
+
+  # prepare vars
+  local name="k3s"
+  # files
+  local tmp_file="$name.tar.gz"
+  local bin_file="./${name}-${PACKAGE_CORE_VERSION#v}-${platform}-${arch}/$name"
+
+  # # prepare context
+  # cd $tmp_dir
+
+  # # reference: https://github.com/9seconds/k3s/releases
+  # # example:
+  # #   https://github.com/9seconds/k3s/releases/download/v2.1.7/k3s-2.1.7-darwin-arm64.tar.gz
+  # #   https://github.com/9seconds/k3s/releases/download/v2.1.7/k3s-2.1.7-darwin-amd64.tar.gz
+  # # generate url
+  # local url="https://github.com/9seconds/k3s/releases/download/$PACKAGE_CORE_VERSION/${name}-${PACKAGE_CORE_VERSION#v}-${platform}-${arch}.tar.gz"
+  # log::debug "[package][$name][$kernel][$arch] url: $url"
+
+  # # download
+  # os::download $tmp_file $url
+
+  # # extract
+  # tar -zxvf $tmp_file >>/dev/null 2>&1
+
+  # # install
+  # sudo mv $bin_file $usr_bin_dir
+
+  # # clean
+  # rm -rf $tmp_dir
+
+  curl -sfL https://get.k3s.io | sh - 
+}
+
+export -f install

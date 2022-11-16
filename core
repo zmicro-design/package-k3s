@@ -15,6 +15,11 @@ install() {
   local tmp_file="$name.tar.gz"
   local bin_file="./${name}-${PACKAGE_CORE_VERSION#v}-${platform}-${arch}/$name"
 
+  if [ "$platform" = "darwin" ]; then
+    log::error "[$(timestamp)] macOS is not supported"
+    return 1
+  fi
+
   # # prepare context
   # cd $tmp_dir
 
